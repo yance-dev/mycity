@@ -1,23 +1,47 @@
 from django.test import TestCase
 
 # Create your tests here.
-def longestCommonPrefix(strs):
-    """
-    :type strs: List[str]
-    :rtype: str
-    """
-    first_word = strs[0]
-    for item in strs:
-        if first_word[0] not in item:
-            return ""
-    for k in range(2,len(first_word)):
-        res = first_word[:k]
-        for item in strs:
-            if res not in item:
-                return res[:(k - 1)]
-    else:
-        return first_word
+import redis
+from django.shortcuts import render,HttpResponse
+from django_redis import get_redis_connection
+
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+"""
+@Author    : Young
+@Email     : hyc554@outlook.com
+@site      : http://www.cnblogs.com/huang-yc/
+@File      : news.py
+@version   : 1.0
+@Time      : 2018/11/1 17:06
+Description about this file: 
+
+"""
+from api import models
+from utils.response_dict import BaseResponse
+from django.shortcuts import render
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework.viewsets import GenericViewSet, ViewSetMixin
+from api.serializers.serialize_article import ArticleSerializers, ArticleDetailSerializers
+from api.views.auth import YcAuth
+
+
+class Index(APIView):
+
+    def get(self, request, *args, **kwargs):
+        conn = get_redis_connection("default")
+
+        return HttpResponse('设置成功')
 
 
 
-print(longestCommonPrefix(["cag","cagecar","cagt"]))
+
+
+
+
+# def index(request):
+#
+# def order(request):
+#     conn = get_redis_connection("back")
+#     return HttpResponse('获取成功')
